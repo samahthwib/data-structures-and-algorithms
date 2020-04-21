@@ -78,8 +78,11 @@ const gruffaloCrumble = {
 
 
 const listFoods = (recipe) => {
-  let result = [];
-  // Solution code here...
+  const regex = /(.+?\s+.+?\s+)/;
+  const result = recipe.ingredients.map(val => {
+    const string = val.replace(regex, ' ');
+    return string.trimLeft();
+  });
   return result;
 };
 
@@ -92,8 +95,16 @@ You may also use other string or array methods.
 ------------------------------------------------------------------------------------------------ */
 
 const splitFoods = (recipe) => {
-  let result = [];
-  // Solution code here...
+  const result = recipe.ingredients.map(val => {
+    const myarr = val.split(' ');
+    if (myarr.length === 3) {
+      return myarr[myarr.length - 1];
+    } else if (myarr.length === 4) {
+      return `${myarr[myarr.length - 2]} ${myarr[myarr.length - 1]}`;
+    } else if (myarr.length === 5) {
+      return `${myarr[myarr.length - 3]} ${myarr[myarr.length - 2]} ${myarr[myarr.length - 1]}`;
+    }
+  });
   return result;
 };
 
@@ -108,8 +119,11 @@ Return a new array containing just the verbs. For example, ['Mix until evenly di
 ------------------------------------------------------------------------------------------------ */
 
 const stepActions = (recipe) => {
-  let result = [];
-  // Solution code here...
+  const myarr = recipe.steps;
+  const result = myarr.map(val => {
+    const step = val.split(' ');
+    return step[0];
+  });
   return result;
 };
 
@@ -127,7 +141,12 @@ For example:
 ------------------------------------------------------------------------------------------------ */
 
 const removeEvenValues = (arr) => {
-  // Solution code here...
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] % 2 === 0) {
+      arr.splice(i, 1);
+      i--;
+    }
+  }
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -146,7 +165,13 @@ removeLastCharacters('Gregor', 9) returns ''
 ------------------------------------------------------------------------------------------------ */
 
 const removeLastCharacters = (str, numberOfCharacters) => {
-  // Solution code here...
+  if (numberOfCharacters < 0) {
+    return str;
+  }
+  const myArr = str.split('');
+  myArr.splice(-numberOfCharacters);
+  const result = myArr.join('');
+  return result;
 };
 
 
